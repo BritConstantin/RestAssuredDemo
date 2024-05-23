@@ -70,6 +70,16 @@ public class ReqresTest {
     @Test
     public void successRegTest(){
         Specifications.installSpecification(Specifications.requestSpecification(URL),Specifications.responseSpecOk200());
-
+        Integer id = 4;
+        String token = "QpwL5tke4Pnpja7X4";
+        RegisterData user = new RegisterData("eve.holt@reqres.in","pistol");
+        SuccessReg successReg = given()
+                .body(user)
+                .when()
+                .post("/api/register")
+                .then().log().all()
+                .extract().as(SuccessReg.class);
+        Assertions.assertEquals(id,successReg.getId());
+        Assertions.assertEquals(token,successReg.getToken());
     }
 }
